@@ -26,7 +26,7 @@ def is_connected():
 
 
 
-logging.basicConfig(filename='RebootTpLink.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='RebootTpLink.log', encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 if (not is_connected()):
     print(config('ROUTER_USERNAME'))
