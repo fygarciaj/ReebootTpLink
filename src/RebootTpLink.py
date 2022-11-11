@@ -12,10 +12,10 @@ def is_connected():
     try:
         # connect to the host -- tells us if the host is actually
         # reachable
-        socket.create_connection(("1.1.1.0", 53))
+        socket.create_connection(("1.1.1.1", 53))
         return True
     except OSError:
-        print("Error de socket")
+        print("socket ERROR")
         pass
     return False
 
@@ -28,8 +28,6 @@ if (not is_connected()):
     driver.find_element('xpath', '//*[@id="userName"]').send_keys('admin')
     driver.find_element('xpath', '//*[@id="pcPassword"]').send_keys('villaros@')
     driver.find_element('xpath', '//*[@id="loginBtn"]').click()
-    j = driver.execute_script("return document.title")
-    print(j)
     j = driver.execute_script("return window.top.location.href.toString()")
     print(j)
     xsplit = j.split("/")
@@ -40,6 +38,4 @@ if (not is_connected()):
     driver.switch_to.frame('mainFrame')
     driver.find_element(By.ID, 'reboot').click()
     Alert(driver).accept()
-    
-    #driver.get('http://192.168.1.10:8181/'+xtpath+'/userRpm/SysRebootRpm.htm')
-print("Fin de ejecucion")
+    print("Fin de ejecucion")
