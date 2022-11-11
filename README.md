@@ -1,4 +1,6 @@
-.env
+For config enviromental vars
+
+ .env
 
 ROUTER_USERNAME = #user admin for router
 ROUTER_PASSWORD = #password for router
