@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import socket
+import logging
 
 from decouple import config
 from selenium import webdriver
@@ -15,16 +16,21 @@ def is_connected():
         # connect to the host -- tells us if the host is actually
         # reachable
         socket.create_connection(("1.1.1.1", 53))
+        logging.info('Connected to internet')
         return True
     except OSError:
         print("socket ERROR")
+        logging.error("Socket Error")
         pass
     return False
 
 
 
+logging.basicConfig(filename='RebootTpLink.log', encoding='utf-8', level=logging.DEBUG)
+
 if (not is_connected()):
     print(config('ROUTER_USERNAME'))
+    logging.error("Not is Connected, Reebooting Router")
     s = Service('webdriver//chromedriver.exe')
     driver = webdriver.Chrome(service=s)
     driver.get(config('ROUTER_URL'))
@@ -40,5 +46,6 @@ if (not is_connected()):
     driver.execute_script('document.getElementById("mainFrame").src = "'+config('ROUTER_URL')+'/'+xtpath+'/userRpm/SysRebootRpm.htm";')
     driver.switch_to.frame('mainFrame')
     driver.find_element(By.ID, 'reboot').click()
-    ## Alert(driver).accept()
+    Alert(driver).accept()
     print("Fin de ejecucion")
+    logging.info("The router has reboot")
